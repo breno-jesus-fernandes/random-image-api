@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from starlette.responses import FileResponse
+from starlette.responses import FileResponse, StreamingResponse
 from PIL import Image
 import os
 import random
@@ -33,7 +33,8 @@ def get_random_image():
                 "expires": expires_format,
 
             }
-            return FileResponse(image_path, filename='random-img.jpg', media_type="image/jpeg", headers=headers)
+            img =  open(image_path, 'rb')
+            return StreamingResponse(img, headers=headers, media_type="image/jpeg")
         else:
             raise HTTPException(status_code=404, detail="Image not found")
 
