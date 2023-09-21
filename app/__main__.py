@@ -29,10 +29,10 @@ def get_random_image():
             expires_format = expires_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
             headers = {
-                "Cache-Control": "no-cache",
-                "Expires": expires_format
+                "cache-control": "max-age=2592000, s-maxage=2592000",
+                "expires": expires_format
             }
-            return FileResponse(image_path, filename='random-img.jpg',media_type="image/*.jpg", headers=headers)
+            return FileResponse(image_path, filename='random-img.jpg', media_type="image/jpg;charset=utf-8", headers=headers)
         else:
             raise HTTPException(status_code=404, detail="Image not found")
 
