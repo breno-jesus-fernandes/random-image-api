@@ -3,6 +3,7 @@ from starlette.responses import FileResponse
 from PIL import Image
 import os
 import random
+from datetime import timedelta, datetime
 
 app = FastAPI()
 
@@ -24,7 +25,14 @@ def get_random_image():
 
         # Check if the image file exists and return it
         if os.path.exists(image_path):
-            return FileResponse(image_path, filename='random-img.jpg',media_type="image/*.jpg")
+            expires_time = datetime.utcnow() - timedelta(seconds=36000)
+            expires_format = expires_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
+
+            headers = {
+                "Cache-Control": "no-cache",
+                "Expires": expires_format
+            }
+            return FileResponse(image_path, filename='random-img.jpg',media_type="image/*.jpg", headers=headers)
         else:
             raise HTTPException(status_code=404, detail="Image not found")
 
