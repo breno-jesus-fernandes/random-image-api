@@ -25,12 +25,10 @@ def get_random_image():
 
         # Check if the image file exists and return it
         if os.path.exists(image_path):
-            expires_time = datetime.utcnow() - timedelta(seconds=36000)
-            expires_format = expires_time.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
             headers = {
-                "cache-control": "max-age=2592000, s-maxage=2592000",
-                "expires": expires_format,
+                "cache-control": "no-cache, no-store, must-revalidate, max-age=0",
+                "expires": '0',
 
             }
             img =  open(image_path, 'rb')
