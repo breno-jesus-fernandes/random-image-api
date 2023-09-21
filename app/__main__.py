@@ -11,7 +11,7 @@ IMAGES_PATH = "images"
 ALLOWED_EXTENSIONS = {".jpg"}
 
 
-@app.get("/random-img.jpg")
+@app.get("/random-image.jpg")
 def get_random_image():
     try:
         # Get a list of all the image filenames in the specified directory
