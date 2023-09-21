@@ -30,9 +30,10 @@ def get_random_image():
 
             headers = {
                 "cache-control": "max-age=2592000, s-maxage=2592000",
-                "expires": expires_format
+                "expires": expires_format,
+
             }
-            return FileResponse(image_path, filename='random-img.jpg', media_type="image/jpg;charset=utf-8", headers=headers)
+            return FileResponse(image_path, filename='random-img.jpg', media_type="image/jpeg", headers=headers)
         else:
             raise HTTPException(status_code=404, detail="Image not found")
 
